@@ -15,7 +15,7 @@ namespace Web_API_AIS_SN.Controllers
     [Route("[controller]")]
     public class SMSRServiceController : Controller
     {
-        private readonly SNSRContext _context;
+        private readonly SMSRContext _context;
         private readonly string json = @"{
                                           'typeRequest':'Request',
                                           'metodRequest':'AccountInfo', 
@@ -25,7 +25,7 @@ namespace Web_API_AIS_SN.Controllers
                                           ]
                                          }";
 
-        public SMSRServiceController(SNSRContext context)
+        public SMSRServiceController(SMSRContext context)
         {
             _context = context;
         }

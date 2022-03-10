@@ -29,7 +29,7 @@ namespace Web_API_AIS_SN
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSwaggerGen();
-            services.AddDbContext<SNSRContext>(
+            services.AddDbContext<SMSRContext>(
                 options => options.UseSqlServer(Configuration["DbConnectionString"]));
 
             services.AddControllers();

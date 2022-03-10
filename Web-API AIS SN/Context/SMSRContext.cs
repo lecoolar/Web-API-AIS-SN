@@ -6,13 +6,13 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Web_API_AIS_SN.SMSR
 {
-    public partial class SNSRContext : DbContext
+    public partial class SMSRContext : DbContext
     {
-        public SNSRContext()
+        public SMSRContext()
         {
         }
 
-        public SNSRContext(DbContextOptions<SNSRContext> options)
+        public SMSRContext(DbContextOptions<SMSRContext> options)
             : base(options)
         {
         }

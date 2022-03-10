@@ -72,7 +72,7 @@ namespace Web_API_AIS_SN
         public string GetConnectionString(long baseId)
         {
             var ws = new WebService();
-            using (var smsr = new SNSRContext())
+            using (var smsr = new SMSRContext())
             {
                 List<WebService> WebServices = smsr.WebServices.ToList();
                 ws = WebServices.FirstOrDefault(w => w.Id == baseId);
