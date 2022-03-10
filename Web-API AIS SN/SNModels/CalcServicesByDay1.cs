@@ -1,0 +1,123 @@
+﻿using System;
+using System.Collections.Generic;
+
+#nullable disable
+
+namespace Web_API_AIS_SN.SNModels
+{
+    public partial class CalcServicesByDay1
+    {
+        public long Id { get; set; }
+        public long CalcId { get; set; }
+        public long AccountServiceId { get; set; }
+        public DateTime Period { get; set; }
+        public DateTime? ParamsPeriod { get; set; }
+        public DateTime RangeStart { get; set; }
+        public DateTime? RangeEnd { get; set; }
+        public byte? DaysInRange { get; set; }
+        public string RangeStartReason { get; set; }
+        public byte? DaysInPeriod { get; set; }
+        public DateTime? FromDate { get; set; }
+        public DateTime? ToDate { get; set; }
+        public long? AlgorithmId { get; set; }
+        public int? AlgorithmParamId { get; set; }
+        public string Formula { get; set; }
+        public string ProcName { get; set; }
+        public byte? NeedApartmentSquares { get; set; }
+        public byte? NeedHousekeepingSquares { get; set; }
+        public byte? NeedApartmentProperties { get; set; }
+        public byte? NeedCounters { get; set; }
+        public decimal? ChargeSumm { get; set; }
+        public decimal? Rate { get; set; }
+        public decimal? RateForDay { get; set; }
+        public long? HouseId { get; set; }
+        public int? HouseFloor { get; set; }
+        public long? ApartmentId { get; set; }
+        public int? Floor { get; set; }
+        public int? RoomsCount { get; set; }
+        public decimal? TotalSquare { get; set; }
+        public decimal? LivingSquare { get; set; }
+        public decimal? HeatingSquare { get; set; }
+        public decimal? BalconySquare { get; set; }
+        public int? ResidentsCount { get; set; }
+        public int? ResidentVacationsCount { get; set; }
+        public int? TotalResidentsCount { get; set; }
+        public decimal? HousekeepingSquare { get; set; }
+        public decimal? ApartmentProperty { get; set; }
+        public long? CounterId { get; set; }
+        public decimal? CounterPaymentShare { get; set; }
+        public string CounterMaddleType { get; set; }
+        public long? CounterTurnoverSize { get; set; }
+        public decimal? CounterConsumption { get; set; }
+        public decimal? CounterInternalFactor { get; set; }
+        public decimal? CounterExternalFactor { get; set; }
+        public decimal? SuspensionFactor { get; set; }
+        public bool? IsSixthFormula { get; set; }
+        public decimal? SubQualityHoursCount { get; set; }
+        public decimal? SubQualityHoursCountCalcedByColdWaterTarif { get; set; }
+        public decimal? SubstitutionTarif { get; set; }
+        public decimal? SubQualityChargeSumm { get; set; }
+        public string UiFormula { get; set; }
+        public decimal? NormRate { get; set; }
+        public decimal? NormRateForDay { get; set; }
+        public decimal? AccountServiceRate { get; set; }
+        public decimal? AccountServiceRateForDay { get; set; }
+        public decimal? AccountServiceNormRate { get; set; }
+        public long? ServiceId { get; set; }
+        public long? ServiceTypeId { get; set; }
+        public decimal? HouseRate { get; set; }
+        public decimal? HouseNormRate { get; set; }
+        public long? AccountId { get; set; }
+        public decimal? RateCounter { get; set; }
+        public decimal? NoticeCoefficientCalc { get; set; }
+        public decimal? NormConsumption { get; set; }
+        public decimal? SuspensionFactorNorm { get; set; }
+        public decimal? DeductionRate { get; set; }
+        public bool? NoticeSaveFromCounters { get; set; }
+        public decimal? NoticeInfoCalcValue { get; set; }
+        public decimal? NoticeInfoCalcValue2 { get; set; }
+        public decimal? NoticeInfoCalcValue3 { get; set; }
+        public int? NoticeInfoCalcFasetId { get; set; }
+        public decimal RateCapacity { get; set; }
+        public decimal? CounterConsumptionSumm { get; set; }
+        public decimal? NormConsumptionSumm { get; set; }
+        public decimal? SocialNormRate { get; set; }
+        public decimal? BigRate { get; set; }
+        public decimal? SeasonalFactor { get; set; }
+        public decimal? RateNormVolume { get; set; }
+        public decimal? AvgConsumptionSaveParam { get; set; }
+        public decimal? CounterConsumptionSaveParam { get; set; }
+        public decimal? NormConsumptionSaveParam { get; set; }
+        public decimal? Resource { get; set; }
+        public int? ResourceUnitId { get; set; }
+        public decimal? RateGeneral { get; set; }
+        public decimal? ResourceGeneral { get; set; }
+        public int? ResourceGeneralUnitId { get; set; }
+        public decimal? ResourceAltGeneral { get; set; }
+        public decimal? SubQualityFactor { get; set; }
+        public decimal? CalcFactor { get; set; }
+        public bool UseNormRate { get; set; }
+        public double? CoefficientByDays { get; set; }
+        public decimal? ChargeSummForBenefit { get; set; }
+        public decimal? NormRateGiga { get; set; }
+        public decimal? NormRateGigaForDay { get; set; }
+        public decimal? RateSaveParam { get; set; }
+        public int? OwnersCount { get; set; }
+        public int? ApartmentTypeId { get; set; }
+        public decimal? SubQualityFactorNorm { get; set; }
+        public decimal SuspensionFactorCounter { get; set; }
+        public decimal? ResidentsCountNorm { get; set; }
+        public decimal? ResidentsCountCounter { get; set; }
+        public decimal? ResidentsCountAvg { get; set; }
+        public DateTime? Created { get; set; }
+        public decimal? RateGeneral2 { get; set; }
+        public decimal? ResourceGeneral2 { get; set; }
+        public int? ResourceGeneral2UnitId { get; set; }
+        public long? ChargeFormulaId { get; set; }
+        public decimal? CounterConsumptionHighQuality { get; set; }
+        public int? ResidentsCountActual { get; set; }
+        public int? TotalResidentsCountActual { get; set; }
+        public bool? IsCalc { get; set; }
+        public bool? IsCalcByOwners { get; set; }
+    }
+}
