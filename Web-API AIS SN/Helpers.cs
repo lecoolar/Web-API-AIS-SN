@@ -74,8 +74,8 @@ namespace Web_API_AIS_SN
             var ws = new WebService();
             using (var smsr = new SMSRContext())
             {
-                List<WebService> WebServices = smsr.WebServices.ToList();
-                ws = WebServices.FirstOrDefault(w => w.Id == baseId);
+                //List<WebService> WebServices = smsr.WebServices.ToList();
+                ws = smsr.WebServices.FirstOrDefault(w => w.Id == baseId);
                 //ws = smsr.WebServices.FirstOrDefault(w => w.Id == baseId);
             }
             var constring = ws != null ?  GetConnectionStringByWS(ws) : "";
@@ -616,6 +616,8 @@ namespace Web_API_AIS_SN
             }
             return userPermisson;
         }
+
+       
 
         //public BaseResult sendEmail(string subject, string body, string emailTo, HttpPostedFileBase file, string filePatch = "", bool isUseHtmlTags = false)
         //{

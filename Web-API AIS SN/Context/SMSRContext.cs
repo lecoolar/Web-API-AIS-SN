@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 #nullable disable
 
-namespace Web_API_AIS_SN.SMSR
+namespace Web_API_AIS_SN.Context
 {
     public partial class SMSRContext : DbContext
     {

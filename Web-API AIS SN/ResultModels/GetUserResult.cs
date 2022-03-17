@@ -5,8 +5,10 @@ using System.Threading.Tasks;
 
 namespace Web_API_AIS_SN.ResultModels
 {
-    public class GetAccontByAccountNew
+    public class GetUserResult
     {
+        public long? Id { get; set; }
 
+        public string Name { get; set; }
     }
 }

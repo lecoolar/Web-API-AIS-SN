@@ -1,10 +1,12 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Web_API_AIS_SN.ResultModels;
+using Web_API_AIS_SN.SNModels;
 
 #nullable disable
 
-namespace Web_API_AIS_SN.SNModels
+namespace Web_API_AIS_SN.Context
 {
     public partial class SNContext : DbContext
     {
@@ -130,7 +132,7 @@ namespace Web_API_AIS_SN.SNModels
         public virtual DbSet<AccountsView> AccountsViews { get; set; }
         public virtual DbSet<AccountsView1> AccountsViews1 { get; set; }
         public virtual DbSet<AccountsViewNotArchived> AccountsViewNotArchiveds { get; set; }
-        public virtual DbSet<Action> Actions { get; set; }
+        public virtual DbSet<SNModels.Action> Actions { get; set; }
         public virtual DbSet<Action1> Actions1 { get; set; }
         public virtual DbSet<ActionDistributed> ActionDistributeds { get; set; }
         public virtual DbSet<ActionDistributedPart> ActionDistributedParts { get; set; }
@@ -1199,7 +1201,7 @@ namespace Web_API_AIS_SN.SNModels
         public virtual DbSet<TmpSnCalcServicesByDays3> TmpSnCalcServicesByDays3s { get; set; }
         public virtual DbSet<Treaty> Treaties { get; set; }
         public virtual DbSet<TypeChange> TypeChanges { get; set; }
-        public virtual DbSet<TypeCode> TypeCodes { get; set; }
+        public virtual DbSet<SNModels.TypeCode> TypeCodes { get; set; }
         public virtual DbSet<Unload> Unloads { get; set; }
         public virtual DbSet<UnloadData> UnloadDatas { get; set; }
         public virtual DbSet<User> Users { get; set; }
@@ -1228,6 +1230,10 @@ namespace Web_API_AIS_SN.SNModels
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("Relational:Collation", "Cyrillic_General_CI_AS");
+            modelBuilder.Entity<AccountInfoResult>().HasNoKey();
+            modelBuilder.Entity<AccountSearchByNumberResult>().HasNoKey();
+            modelBuilder.Entity<AccountServicesInfoResult>().HasNoKey();          
+            modelBuilder.Entity<GetUserResult>().HasNoKey();         
 
             modelBuilder.Entity<Account>(entity =>
             {
@@ -8756,7 +8762,7 @@ namespace Web_API_AIS_SN.SNModels
                 entity.Property(e => e.UseAccountServiceGroups).HasColumnName("useAccountServiceGroups");
             });
 
-            modelBuilder.Entity<Action>(entity =>
+            modelBuilder.Entity<SNModels.Action>(entity =>
             {
                 entity.HasKey(e => new { e.Period, e.Id })
                     .HasName("PK__noticeActions");
@@ -8858,7 +8864,7 @@ namespace Web_API_AIS_SN.SNModels
 
                 entity.HasOne(d => d.Action)
                     .WithOne(p => p.ActionDistributed)
-                    .HasPrincipalKey<Action>(p => p.Id)
+                    .HasPrincipalKey<SNModels.Action>(p => p.Id)
                     .HasForeignKey<ActionDistributed>(d => d.ActionId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FC_noticeActionDistributed_actionId");
@@ -75103,7 +75109,7 @@ namespace Web_API_AIS_SN.SNModels
                 entity.Property(e => e.ServiceId).HasColumnName("serviceId");
             });
 
-            modelBuilder.Entity<TypeCode>(entity =>
+            modelBuilder.Entity<SNModels.TypeCode>(entity =>
             {
                 entity.HasKey(e => new { e.OldTypeId, e.NewTypeId, e.OldCode, e.NewCode })
                     .HasName("PK__TypeCode");

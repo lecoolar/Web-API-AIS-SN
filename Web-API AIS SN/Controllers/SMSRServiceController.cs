@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -15,43 +16,32 @@ namespace Web_API_AIS_SN.Controllers
     [Route("[controller]")]
     public class SMSRServiceController : Controller
     {
-        private readonly SMSRContext _context;
-        private readonly string json = @"{
-                                          'typeRequest':'Request',
-                                          'metodRequest':'AccountInfo', 
-                                          'params' : [
-                                          {'name':'account', 'value':'3000000142533'},
-                                          {'name':'baseId', 'value':'1'}
-                                          ]
-                                         }";
 
-        public SMSRServiceController(SMSRContext context)
+        //public SMSRServiceController(SMSRContext context)
+        //{
+        //    _context = context;
+        //}
+        [HttpPost]
+        public async Task<ActionResult<ResponseData>> SartMethod(GKH.Request request)
         {
-            _context = context;
-        }
-        [HttpGet]
-        public async Task<ActionResult<ResponseData>> SartMethod(string startMethod)
-        {
-            var resultJson = "";
-            GKH.Request tmp = JsonConvert.DeserializeObject<GKH.Request>(startMethod);
-            switch (tmp.MetodRequest)
+            ResponseData result = new ResponseData();
+            switch (request.MetodRequest)
             {
                 case "AccountInfo":
-                    GKH.AccountInfo accountInfo = new GKH.AccountInfo(tmp.@params);
-                    resultJson = accountInfo.GetAccountInfo();
+                    GKH.AccountInfo accountInfo = new GKH.AccountInfo(request.@params);
+                    result = await accountInfo.GetAccountInfo();
                     break;
-
+                case "GetAccountsByFiasHouseAndRoom":
+                    AccountsByFiasHouseAndRoom accountsByFiasHouseAndRoom = new AccountsByFiasHouseAndRoom(request.@params);
+                    result = await accountsByFiasHouseAndRoom.GetAccountsByFiasHouseAndRoom();
+                    break;
+                case "AccountServiceInfo":
+                    AccountServiceInfo accountServiceInfo = new AccountServiceInfo(request.@params);
+                    result = await accountServiceInfo.GetAccountServiceInfo();
+                    break;
             }
-            ResponseData result = await Task.Run(() => JsonConvert.DeserializeObject<ResponseData>(resultJson));
             return result;
         }
 
-        //[HttpGet]
-        //public async Task<ActionResult<AccountInfoView>> Index()
-        //{
-        //    await SartMethod(json);
-        //    AccountInfoView result = await _context.AccountInfoViews.FirstAsync();
-        //    return result;
-        //}
     }
 }

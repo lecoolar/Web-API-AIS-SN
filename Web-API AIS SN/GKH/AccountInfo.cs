@@ -1,9 +1,11 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using Web_API_AIS_SN.Context;
 using Web_API_AIS_SN.Model;
 using Web_API_AIS_SN.ResultModels;
 using Web_API_AIS_SN.SMSR;
@@ -26,11 +28,10 @@ namespace Web_API_AIS_SN.GKH
             var bId = @params.Where(q => q.Name == "baseId").FirstOrDefault();
             BaseId = bId == null ? (int?)null : Convert.ToInt32(bId.Value);
         }
-        public string GetAccountInfo()
-        { 
+        public async Task<ResponseData> GetAccountInfo()
+        {
             var webService = new List<WebService>();
             var constring = "";
-            var resultJson = "";
             var res = new ResponseData();
             var userPermisson = false;
             List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
@@ -38,7 +39,7 @@ namespace Web_API_AIS_SN.GKH
             {
                 res.Result.Code = 1;
                 res.Result.Message = String.Format("Не указан обязательный параметр №базы, требуется уточнение параметра");
-                return new Helpers().ToJson(res);
+                return res;
             }
             else
             {
@@ -49,7 +50,7 @@ namespace Web_API_AIS_SN.GKH
             {
                 res.Result.Code = 11;
                 res.Result.Message = $"{Uid}  Ошибка, не удалось собрать строку подключения к базе!";
-                return new Helpers().ToJson(res);
+                return res;
             }
             else
             {
@@ -59,17 +60,16 @@ namespace Web_API_AIS_SN.GKH
                     userPermisson = new Helpers().CheckUserPermisson(constring, accountId);
                     if (userPermisson)
                     {
-                        AccountInfoResult accountInfoList = new AccountInfoResult(Account,sn);
-                        //PropertyInfo[] Props = typeof(AccountInfoResult).GetProperties();
-                        PropertyInfo[] Props = accountInfoList.GetType().GetProperties();
-
-                            var row = new Dictionary<string, object>();
-                            foreach (var prop in Props)
-                            {
-                                row.Add(prop.Name, prop.GetValue(accountInfoList, null));
-                                //inserting property values to datatable rows
-                            }
-                            rows.Add(row);
+                        string query = @$"SELECT * FROM CRM.""AccountInfo""({Account})";
+                        AccountInfoResult accountInfo = await sn.Set<AccountInfoResult>().FromSqlRaw(query).FirstOrDefaultAsync();
+                        PropertyInfo[] Props = accountInfo.GetType().GetProperties();
+                        var row = new Dictionary<string, object>();
+                        foreach (var prop in Props)
+                        {
+                            row.Add(prop.Name, prop.GetValue(accountInfo, null));
+                            //inserting property values to datatable rows
+                        }
+                        rows.Add(row);
                     }
                 }
                 if (rows.Any())
@@ -89,9 +89,7 @@ namespace Web_API_AIS_SN.GKH
                     res.Result.Message = "По указанному лицевому счету информация об услугах не найдена";
                 }
             }
-            //resultJson = serializer.Serialize(res);
-            resultJson = JsonConvert.SerializeObject(res);
-            return resultJson;
+            return res;
         }
 
     }

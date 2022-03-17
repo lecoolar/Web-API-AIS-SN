@@ -1,9 +1,12 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using Web_API_AIS_SN.Context;
 using Web_API_AIS_SN.Model;
+using Web_API_AIS_SN.ResultModels;
 using Web_API_AIS_SN.SMSR;
 using Web_API_AIS_SN.SNModels;
 
@@ -29,9 +32,8 @@ namespace Web_API_AIS_SN.GKH
             Room = @params.Where(q => q.Name == "room").FirstOrDefault().Value;
         }
 
-        public string GetAccountsByFiasHouseAndRoom()
+        public async Task<ResponseData> GetAccountsByFiasHouseAndRoom()
         {
-            var resultJson = "";
             var res = new ResponseData();
 
             using (var smsr = new SMSRContext())
@@ -55,33 +57,32 @@ namespace Web_API_AIS_SN.GKH
                     var constring = new Helpers().GetConnectionString(ws.BaseId);
                     using (var sn = new SNContext(constring))
                     {
-                        AccountSearchByNumberResult accountInfoList = new AccountSearchByNumberResult(Account, sn);
-                        PropertyInfo[] Props = typeof(AccountSearchByNumberResult).GetType().GetProperties();
                         foreach (var acc in ListAccounts)
                         {
-                            var accountSearch = sn.AccountSearchByNumber(acc, false, false, "SN").OrderByDescending(a => a.isClose).ToList();
-                            foreach (var search in accountSearch)
+                            string query = @$"SELECT * FROM CRM.""AccountSearchByNumber""({acc},{0},{0},'SN')";
+                            var accountSearch =await sn.Set<AccountSearchByNumberResult>().FromSqlRaw(query).OrderByDescending(a => a.IsClose).FirstOrDefaultAsync();
+                            PropertyInfo[] Props = accountSearch.GetType().GetProperties();
+
+                            var row = new Dictionary<string, object>();
+                            for (int i = 0; i < Props.Length; i++)
                             {
-                                var row = new Dictionary<string, object>();
-                                for (int i = 0; i < Props.Length; i++)
-                                {
-                                    //inserting property values to datatable rows
-                                    row.Add(Props[i].Name, Props[i].GetValue(search, null));
-                                }
-                                row.Add("numberBase", ws.baseId);
-                                row.Add("baseName", ws.baseName);
-                                row.Add("orgName", ws.area);
-                                row.Add("baseId", ws.baseId);
-                                rows.Add(row);
+                                //inserting property values to datatable rows
+                                row.Add(Props[i].Name, Props[i].GetValue(accountSearch, null));
                             }
+                            row.Add("numberBase", ws.BaseId);
+                            row.Add("baseName", ws.BaseName);
+                            row.Add("orgName", ws.Area);
+                            row.Add("baseId", ws.BaseId);
+                            rows.Add(row);
                         }
                     }
-                    res.responseObject = rows;
+                    res.ResponseObject = rows;
                 }
             }
-
-                return resultJson;
+            return res;
         }
 
     }
 }
+
+

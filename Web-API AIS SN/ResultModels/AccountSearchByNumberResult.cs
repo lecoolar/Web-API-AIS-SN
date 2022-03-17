@@ -45,9 +45,6 @@ namespace Web_API_AIS_SN.ResultModels
 
 		public string PSK { get; set; }
 
-		public AccountSearchByNumberResult()
-		{
-			
-		}
+
 	}
 }
