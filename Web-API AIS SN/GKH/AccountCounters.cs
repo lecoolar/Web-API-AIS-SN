@@ -28,8 +28,6 @@ namespace Web_API_AIS_SN.GKH
         public async Task<AccountResponseData> GetAccountCounters()
         {
             var constring = "";
-
-            var resultJson = "";
             var pb = new PublicMetods();
             var webservice = new List<WebService>();
             var res = new AccountResponseData();

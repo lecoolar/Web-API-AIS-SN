@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Web_API_AIS_SN.Context;
 using Web_API_AIS_SN.SMSR;
 
 namespace Web_API_AIS_SN
@@ -33,7 +34,7 @@ namespace Web_API_AIS_SN
                 options => options.UseSqlServer(Configuration["DbConnectionString"]));
 
             services.AddControllers();
-
+            //services.AddScoped(typeof(IConfiguration));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

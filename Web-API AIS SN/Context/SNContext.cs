@@ -1225,7 +1225,7 @@ namespace Web_API_AIS_SN.Context
         public virtual DbSet<WorkTimeTemplate> WorkTimeTemplates { get; set; }
         public virtual DbSet<_79647ApartmentTypesFasetId6> _79647ApartmentTypesFasetId6s { get; set; }
         public virtual DbSet<_82430L> _82430Ls { get; set; }
-
+        public int CommandTimeout { get; internal set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -1233,7 +1233,25 @@ namespace Web_API_AIS_SN.Context
             modelBuilder.Entity<AccountInfoResult>().HasNoKey();
             modelBuilder.Entity<AccountSearchByNumberResult>().HasNoKey();
             modelBuilder.Entity<AccountServicesInfoResult>().HasNoKey();          
-            modelBuilder.Entity<GetUserResult>().HasNoKey();         
+            modelBuilder.Entity<GetUserResult>().HasNoKey();
+            modelBuilder.Entity<AccountCountersInfoResult>().HasNoKey();
+            modelBuilder.Entity<GetPrintedNoticeByAccount_ForLKResult>().HasNoKey();
+            modelBuilder.Entity<SeletReportsAndSettingResult>().HasNoKey();
+            modelBuilder.Entity<NoticeTemplateSettings_GetWithRightResult>().HasNoKey();
+            modelBuilder.Entity<NoticeTemplates_GetWithRightResult>().HasNoKey();
+            modelBuilder.Entity<NoticeTemplateSettings_GetByOrganizationsForLkResult>().HasNoKey();
+            modelBuilder.Entity<GroupOperationJournal_BankruptResult>().HasNoKey();
+            modelBuilder.Entity<GetProvidersIdInvolvedInOperationResult>().HasNoKey();
+            modelBuilder.Entity<JnByGroupOperationResult>().HasNoKey();
+            modelBuilder.Entity<CounterIndicationsByPeriodResult>().HasNoKey();
+            modelBuilder.Entity<GetSettingsInputResult>().HasNoKey();
+            modelBuilder.Entity<AccountConsumptionResult>().HasNoKey();
+            modelBuilder.Entity<Account_RecalcResult>().HasNoKey();
+            modelBuilder.Entity<GetLocalAddressesByLocalDistrictResult>().HasNoKey();
+            modelBuilder.Entity<GetLocalAddressByFIOResult>().HasNoKey();
+            modelBuilder.Entity<AccountSearchByLocalAddressResult>().HasNoKey();
+            modelBuilder.Entity<GetBilledAmountsResult>().HasNoKey();
+
 
             modelBuilder.Entity<Account>(entity =>
             {

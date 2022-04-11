@@ -20,62 +20,64 @@ using Web_API_AIS_SN.Context;
 using Web_API_AIS_SN.LibClass;
 using Web_API_AIS_SN.LibClass.Enums;
 using Web_API_AIS_SN.ResultModels;
+using Web_API_AIS_SN.SNModels;
+using Microsoft.AspNetCore.Http;
 
 namespace Web_API_AIS_SN
 {
 
-    //public class ReportsAndSetting : SeletReportsAndSettingResult
-    //{
-    //    public ReportsAndSetting(GetPrintedNoticeByAccount_ForLKResult res)
-    //    {
-    //        reportId = res.noticeTemplateId;
-    //        reportName = res.noticeTemplateName;
-    //        settingId = res.noticeTemplateSettingsId;
-    //        settingName = res.noticeTemplateSettingsName;
-    //    }
+    public class ReportsAndSetting : SeletReportsAndSettingResult
+    {
+        public ReportsAndSetting(GetPrintedNoticeByAccount_ForLKResult res)
+        {
+            ReportId = res.NoticeTemplateId;
+            ReportName = res.NoticeTemplateName;
+            SettingId = res.NoticeTemplateSettingsId;
+            SettingName = res.NoticeTemplateSettingsName;
+        }
 
-    //    public ReportsAndSetting(SeletReportsAndSettingResult res)
-    //    {
-    //        reportId = res.reportId;
-    //        reportName = res.reportName;
-    //        settingId = res.settingId;
-    //        settingName = res.settingName;
-    //    }
+        public ReportsAndSetting(SeletReportsAndSettingResult res)
+        {
+            ReportId = res.ReportId;
+            ReportName = res.ReportName;
+            SettingId = res.SettingId;
+            SettingName = res.SettingName;
+        }
 
-    //    public ReportsAndSetting(NoticeTemplateSettingsView res)
-    //    {
-    //        reportId = res.noticeTemplateId;
-    //        reportName = res.templateName;
-    //        settingId = res.id;
-    //        settingName = res.name;
-    //    }
+        public ReportsAndSetting(NoticeTemplateSettingsView res)
+        {
+            ReportId = res.NoticeTemplateId;
+            ReportName = res.TemplateName;
+            SettingId = res.Id;
+            SettingName = res.Name;
+        }
 
-    //}
+    }
 
-    //public class WebServicesAndNumber
-    //{
-    //    public string account { get; set; }
-    //    public WebServices webservices { get; set; }
+    public class WebServicesAndNumber
+    {
+        public string Account { get; set; }
+        public WebService Webservice { get; set; }
 
-    //    public WebServicesAndNumber()
-    //    {
-    //        webservices = new WebServices();
-    //        account = "";
-    //    }
-    //}
-    //public class WebServicesAndNumberANdRegister : WebServicesAndNumber
-    //{
-    //    public bool registered { get; set; }
-    //    public bool registeredNow { get; set; }
+        public WebServicesAndNumber()
+        {
+            Webservice = new WebService();
+            Account = "";
+        }
+    }
+    public class WebServicesAndNumberANdRegister : WebServicesAndNumber
+    {
+        public bool Registered { get; set; }
+        public bool RegisteredNow { get; set; }
 
-    //    public WebServicesAndNumberANdRegister()
-    //    {
-    //        webservices = new WebServices();
-    //        account = "";
-    //        registered = false;
-    //        registeredNow = false;
-    //    }
-    //}
+        public WebServicesAndNumberANdRegister()
+        {
+            Webservice = new WebService();
+            Account = "";
+            Registered = false;
+            RegisteredNow = false;
+        }
+    }
 
     public class PublicMetods
     {
@@ -85,100 +87,100 @@ namespace Web_API_AIS_SN
         //    return ConfigurationManager.AppSettings[name] == null ? "" : ConfigurationManager.AppSettings[name];
 
         //}
-        //public List<Dictionary<string, object>> TableToDictionari(DataTable data)
-        //{
-        //    var row = new Dictionary<string, object>();
-        //    var rows = new List<Dictionary<string, object>>();
+        public List<Dictionary<string, object>> TableToDictionari(DataTable data)
+        {
+            var row = new Dictionary<string, object>();
+            var rows = new List<Dictionary<string, object>>();
 
-        //    foreach (DataRow dr in data.Rows)
-        //    {
-        //        row = new Dictionary<string, object>();
-        //        foreach (DataColumn col in data.Columns)
-        //        {
-        //            if (dr[col].GetType() == typeof(DateTime))
-        //            {
-        //                row.Add(col.ColumnName, Convert.ToDateTime(dr[col]).ToString("yyyy.MM.dd"));
-        //            }
-        //            else
-        //                row.Add(col.ColumnName, dr[col]);
-        //        }
-        //        rows.Add(row);
-        //    }
-        //    return rows;
-        //}
-        //public void SendErrorInHandler(string code, string message, HttpResponse errorcontext)
-        //{
-        //    new Logs().LogAdd(String.Format("Ошибка: {0} , Описание : {1}", code, message));
-        //    errorcontext.Clear();
-        //    errorcontext.ClearHeaders();
-        //    errorcontext.ClearContent();
-        //    errorcontext.ContentType = "charset=windows-1251";
-        //    errorcontext.Headers.Add("code", code);
-        //    errorcontext.Headers.Add("message", message);
-        //    errorcontext.Flush();
-        //    errorcontext.End();
+            foreach (DataRow dr in data.Rows)
+            {
+                row = new Dictionary<string, object>();
+                foreach (DataColumn col in data.Columns)
+                {
+                    if (dr[col].GetType() == typeof(DateTime))
+                    {
+                        row.Add(col.ColumnName, Convert.ToDateTime(dr[col]).ToString("yyyy.MM.dd"));
+                    }
+                    else
+                        row.Add(col.ColumnName, dr[col]);
+                }
+                rows.Add(row);
+            }
+            return rows;
+        }
+        ////public void SendErrorInHandler(string code, string message, HttpResponse errorcontext)
+        ////{
+        ////    new Logs().LogAdd(String.Format("Ошибка: {0} , Описание : {1}", code, message));
+        ////    errorcontext.Clear();
+        ////    errorcontext.ClearHeaders();
+        ////    errorcontext.ClearContent();
+        ////    errorcontext.ContentType = "charset=windows-1251";
+        ////    errorcontext.Headers.Add("code", code);
+        ////    errorcontext.Headers.Add("message", message);
+        ////    errorcontext.Flush();
+        ////    errorcontext.End();
 
-        //}
-        //public byte[] SaveStimulSoftFile1(string ls, string patchName, StiReport file, string name)
-        //{
-        //    var model = new BaseResult();
-        //    var l = new Logs();
-        //    try
-        //    {
-        //        string m_FileNewCheck = String.Empty;
-        //        string filePatch = String.Empty;
-        //        l.LogAdd("1 "+ name);
-        //        //Directory.CreateDirectory(patchName);
-        //        //m_FileNewCheck = string.Format(patchName + name);
-        //        //if (file.CompiledReport == null)
-        //        //{
-        //        //    file.Compile();
-        //        //}
-        //        if (file.CompiledReport != null && file.CompiledReport?.CompiledReport == null)
-        //            try
-        //            {
-        //                file.Render();
-        //            }
-        //            catch { l.LogAdd(String.Format("Упали в момент рендера")); }
-        //        //file.ExportDocument(StiExportFormat.Pdf, m_FileNewCheck);
-        //        //var downloadFile = new FileInfo(m_FileNewCheck);
-        //        //settings = new StiPngExportSettings { ImageFormat = StiImageFormat.Monochrome, DitheringType = StiMonochromeDitheringType.None, ImageZoom = 2.5 };
-        //        l.LogAdd("2 " + name);
-        //        byte[] buf = null;
-        //        using (var ms1 = new MemoryStream())
-        //        { 
-        //        StiPdfExportService pdfService = new StiPdfExportService();
-        //            pdfService.ExportPdf(file, ms1);
+        ////}
+        ////public byte[] SaveStimulSoftFile1(string ls, string patchName, StiReport file, string name)
+        ////{
+        ////    var model = new BaseResult();
+        ////    var l = new Logs();
+        ////    try
+        ////    {
+        ////        string m_FileNewCheck = String.Empty;
+        ////        string filePatch = String.Empty;
+        ////        l.LogAdd("1 " + name);
+        ////        //Directory.CreateDirectory(patchName);
+        ////        //m_FileNewCheck = string.Format(patchName + name);
+        ////        //if (file.CompiledReport == null)
+        ////        //{
+        ////        //    file.Compile();
+        ////        //}
+        ////        if (file.CompiledReport != null && file.CompiledReport?.CompiledReport == null)
+        ////            try
+        ////            {
+        ////                file.Render();
+        ////            }
+        ////            catch { l.LogAdd(String.Format("Упали в момент рендера")); }
+        ////        //file.ExportDocument(StiExportFormat.Pdf, m_FileNewCheck);
+        ////        //var downloadFile = new FileInfo(m_FileNewCheck);
+        ////        //settings = new StiPngExportSettings { ImageFormat = StiImageFormat.Monochrome, DitheringType = StiMonochromeDitheringType.None, ImageZoom = 2.5 };
+        ////        l.LogAdd("2 " + name);
+        ////        byte[] buf = null;
+        ////        using (var ms1 = new MemoryStream())
+        ////        {
+        ////            StiPdfExportService pdfService = new StiPdfExportService();
+        ////            pdfService.ExportPdf(file, ms1);
 
-        //         buf = ms1.ToArray();
-        //        }
+        ////            buf = ms1.ToArray();
+        ////        }
 
-        //        //StiPdfExportService service = new StiPdfExportService();
+        ////        //StiPdfExportService service = new StiPdfExportService();
 
-        //        //    service.Progress = StiGuiOptions.GetProgressInformation(service.OwnerWindow, StiGuiMode.Gdi);
-        //        //    service.Progress.SetAllowClose(false); //disable Cancel button
-        //        //    service.Progress.Start(StiLocalization.Get("Export", "ExportingReport"));
-        //        //    service.ExportPdf(report, strOutputFilePath);
-        //        //    service.Progress.Close();
-        //        //    service.Progress = null;
-
-
-
-        //        return buf;
+        ////        //    service.Progress = StiGuiOptions.GetProgressInformation(service.OwnerWindow, StiGuiMode.Gdi);
+        ////        //    service.Progress.SetAllowClose(false); //disable Cancel button
+        ////        //    service.Progress.Start(StiLocalization.Get("Export", "ExportingReport"));
+        ////        //    service.ExportPdf(report, strOutputFilePath);
+        ////        //    service.Progress.Close();
+        ////        //    service.Progress = null;
 
 
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        model.code = 413;
-        //        model.message = "Не удалось сформировать файл (Ошибка формировании файла pdf)";
-        //        l.LogAdd(String.Format("Ошибка формировании файла pdf. {0} \n {1}", ex.Message, ex.StackTrace));
 
-        //    }
+        ////        return buf;
 
-        //    l.LogAdd("4 " + name);
-        //    return null;
-        //}
+
+        ////    }
+        ////    catch (Exception ex)
+        ////    {
+        ////        model.code = 413;
+        ////        model.message = "Не удалось сформировать файл (Ошибка формировании файла pdf)";
+        ////        l.LogAdd(String.Format("Ошибка формировании файла pdf. {0} \n {1}", ex.Message, ex.StackTrace));
+
+        ////    }
+
+        ////    l.LogAdd("4 " + name);
+        ////    return null;
+        ////}
 
         //private static object objLock = new object();
         //public void SendSaveFile1(string guid, string filePatch, HttpResponse context, string failName, byte[] buf)
@@ -260,7 +262,7 @@ namespace Web_API_AIS_SN
         //            // удаляем файл
         //            //System.IO.File.Delete(m_FileNewCheck);
         //            // преобразуем содержимое мемористрима в массив байт
-        //          var  buffer = ms.ToArray();
+        //            var buffer = ms.ToArray();
         //        }
 
 
@@ -869,14 +871,16 @@ namespace Web_API_AIS_SN
                 (c.EndDate != null && DateTime.Parse(c.EndDate) < DateTime.Now)
                 || (c.CounterServiceToDate != null && DateTime.Parse(c.CounterServiceToDate) < DateTime.Now));
                 var acc = new AccountSN(constring).GetByNumber(account);
-                res.SetWOAuth = acc?.SetCounterIndicationWOAuth ?? true;
+#warning берется данные из бд которое не могу найти
+                //res.SetWOAuth = acc?.SetCounterIndicationWOAuth ?? true;
+                res.SetWOAuth = true;
 
                 var notUseLiquidationRefDate = false;
 
                 using (var lk = new SMSRContext())
                 {
                     notUseLiquidationRefDate = lk.Settings.Any(s => (s.Name == "City" && s.Value == "Tolyatti") || (s.Name == "City" && s.Value == "Ulyanovsk") || (s.Name == "City" && s.Value == "MGT"));
-                    if (lk.Settings.Any(s => s.name == "UseLiquidationRefDateForNonResidential" && s.value.ToLower() == "no"))
+                    if (lk.Settings.Any(s => s.Name == "UseLiquidationRefDateForNonResidential" && s.Value.ToLower() == "no"))
                     {
                         notUseLiquidationRefDate = new AccountSN(constring).GetAccountProperties(acc.Id)
                             .Any(p => p.PropertyName == "Нежилое помещение"

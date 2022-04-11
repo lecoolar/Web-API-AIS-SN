@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using Web_API_AIS_SN.Context;
 using Web_API_AIS_SN.LibClass;
 using Web_API_AIS_SN.Model;
 using Web_API_AIS_SN.ResultModels;
@@ -39,10 +40,12 @@ namespace Web_API_AIS_SN.GKH
             using (var smsr = new SMSRContext())
             {
 #warning выводит все значения
-                if ("LK" != "CRM")
-                availableProdiders = smsr.BaseSettings.SingleOrDefault(z => z.SettingName == "id поставщиков, услуги которых не отображать в API" && z.BaseId == BaseId)?.Value;
-                showBankrupt = smsr.Settings.SingleOrDefault(s => s.Name == "showBankrupt")?.Value == "no" ? false : true;
-                useOnlyAvailableHouseId = smsr.Settings.SingleOrDefault(s => s.Name == "useOnlyAvailableHouseId")?.Value == "yes" ? true : false;
+                if ("CRM" != "CRM")
+                {
+                    availableProdiders = smsr.BaseSettings.SingleOrDefault(z => z.SettingName == "id поставщиков, услуги которых не отображать в API" && z.BaseId == BaseId)?.Value;
+                    showBankrupt = smsr.Settings.SingleOrDefault(s => s.Name == "showBankrupt")?.Value == "no" ? false : true;
+                    useOnlyAvailableHouseId = smsr.Settings.SingleOrDefault(s => s.Name == "useOnlyAvailableHouseId")?.Value == "yes" ? true : false;
+                }
             }
             if (BaseId == null || BaseId == 0)
             {

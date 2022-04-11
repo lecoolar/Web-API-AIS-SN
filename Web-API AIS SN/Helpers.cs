@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.Extensions.Configuration;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Json;
 using System.Text.RegularExpressions;
+using Web_API_AIS_SN.Context;
 using Web_API_AIS_SN.SMSR;
 using Web_API_AIS_SN.SNModels;
 
@@ -12,6 +14,12 @@ namespace Web_API_AIS_SN
     {
         int answerOnThered = 0;
         static List<long> m_BaseWhereCheckingLs;
+        private readonly IConfiguration Configuration;
+
+        //public Helpers(IConfiguration configuration)
+        //{
+        //    Configuration = configuration;
+        //}
 
         public class ResponseToken
         {
@@ -74,9 +82,9 @@ namespace Web_API_AIS_SN
             var ws = new WebService();
             using (var smsr = new SMSRContext())
             {
-                //List<WebService> WebServices = smsr.WebServices.ToList();
+                //List<WebService> webServices = smsr.WebServices.ToList();
                 ws = smsr.WebServices.FirstOrDefault(w => w.Id == baseId);
-                //ws = smsr.WebServices.FirstOrDefault(w => w.Id == baseId);
+                //ws = webServices.FirstOrDefault(w => w.Id == baseId);
             }
             var constring = ws != null ?  GetConnectionStringByWS(ws) : "";
             return constring;
@@ -98,17 +106,17 @@ namespace Web_API_AIS_SN
             }
             else
             {
-#warning
+#warning взять значение из апсетинга
                 login = "lk_marketplace";
                 password = "zFnZ3Mq9K";
-                //login = Configuration.GetSection("AppSettings")["LoginSN"];
-                //password = Configuration.GetSection("AppSettings")["PasswordSN"];
+                //login = Configuration["LoginSN"];
+                //password = Configuration["PasswordSN"];
             }
 
             var constring = "";
             if (!string.IsNullOrEmpty(login) && !string.IsNullOrEmpty(password)) 
             {
-                constring = $"Data Source={ws.BaseIp};Initial Catalog={ws.BaseName};User ID={login};Password={password}";
+                constring = $"Data Source={ws.BaseIp};Initial Catalog={ws.BaseName};TrustServerCertificate=True;Persist Security Info=True;User ID={login};Password={password}";
             }         
             return constring;
         }

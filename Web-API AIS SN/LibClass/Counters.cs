@@ -90,13 +90,13 @@ namespace Web_API_AIS_SN.LibClass
         }
 
         public async Task<List<AccountCountersInfoResult>> GetAccountCountersInfo(string account, bool needCommunal)
-        {
+        {           
             var accountCounters = new List<AccountCountersInfoResult>();
             try
             {
                 using (var sn = new SNContext(conString))
                 {
-                    string query = @$"SELECT * FROM CRM.""AccountCountersInfo""({account},{needCommunal})";
+                    string query = @$"SELECT * FROM CRM.""AccountCountersInfo""({account},{(needCommunal ? 1 : 0)})";
                     accountCounters = await sn.Set<AccountCountersInfoResult>().FromSqlRaw(query).ToListAsync();
                 }
             }

@@ -526,24 +526,22 @@ namespace Web_API_AIS_SN.LibClass
         //    }
 
 
-        //    public List<Accounts> GetByApartmentIdWithCloced(long apartmentId)
-        //    {
-        //        var accounts = new List<Accounts>();
-        //        Accounts account = null;
-        //        try
-        //        {
-        //            using (var sn = new SNDataContext(conString))
-        //            {
-        //                accounts = sn.Accounts.Where(q => q.apartmentId == apartmentId).ToList();
-        //            }
-        //        }
-        //        catch
-        //        {
+        public List<Account> GetByApartmentIdWithCloced(long apartmentId)
+        {
+            var accounts = new List<Account>();
+            try
+            {
+                using (var sn = new SNContext(conString))
+                {
+                    accounts = sn.Accounts.Where(q => q.ApartmentId == apartmentId).ToList();
+                }
+            }
+            catch
+            {
 
-        //        }
-
-        //        return accounts;
-        //    }
+            }
+            return accounts;
+        }
 
 
         //    public AccountHouseHoldersView GetAccountHouseHolders(long accId)

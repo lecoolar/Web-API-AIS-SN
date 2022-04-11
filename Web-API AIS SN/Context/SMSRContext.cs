@@ -1,6 +1,8 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Web_API_AIS_SN.ResultModels;
+using Web_API_AIS_SN.SMSR;
 
 #nullable disable
 
@@ -16,13 +18,13 @@ namespace Web_API_AIS_SN.Context
             : base(options)
         {
         }
-#warning
+#warning путь к бд
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
                 //optionsBuilder.UseSqlServer("DbConnectionString");
-                optionsBuilder.UseSqlServer("Data Source=dev1-srv.aisgorod.ru;Initial Catalog=sn_sms_router_test;Persist Security Info=True;User ID=lk;Password=lk2011");
+                optionsBuilder.UseSqlServer("Data Source=dev1-srv.aisgorod.ru;Initial Catalog=sn_sms_router_test;Persist Security Info=True;TrustServerCertificate=True;User ID=lk;Password=lk2011");
             }
         }
 
@@ -297,6 +299,7 @@ namespace Web_API_AIS_SN.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("Relational:Collation", "Cyrillic_General_CI_AS");
+            modelBuilder.Entity<GetPaysLKResult>().HasNoKey();
 
             modelBuilder.Entity<Account>(entity =>
             {
