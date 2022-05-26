@@ -491,39 +491,39 @@ namespace Web_API_AIS_SN.LibClass
         //        return result;
         //    }
 
-        //    public Accounts GetByApartmentId(long apartmentId)
-        //    {
-        //        var accounts = new List<Accounts>();
-        //        Accounts account = null;
-        //        try
-        //        {
-        //            using (var sn = new SNDataContext(conString))
-        //            {
-        //                accounts = sn.Accounts.Where(q => q.apartmentId == apartmentId && (q.datee == null || q.datee >= DateTime.Today)).ToList();
-        //                if (accounts.Any())
-        //                {
-        //                    if (accounts.Count() == 1)
-        //                    {
-        //                        account = accounts.Single();
-        //                    }
-        //                    else
-        //                    {
-        //                    }
-        //                }
-        //                else
-        //                {
+        public Account GetByApartmentId(long apartmentId)
+        {
+            var accounts = new List<Account>();
+            Account account = null;
+            try
+            {
+                using (var sn = new SNContext(conString))
+                {
+                    accounts = sn.Accounts.Where(q => q.ApartmentId == apartmentId && (q.Datee == null || q.Datee >= DateTime.Today)).ToList();
+                    if (accounts.Any())
+                    {
+                        if (accounts.Count() == 1)
+                        {
+                            account = accounts.Single();
+                        }
+                        else
+                        {
+                        }
+                    }
+                    else
+                    {
 
-        //                }
+                    }
 
-        //            }
-        //        }
-        //        catch
-        //        {
+                }
+            }
+            catch
+            {
 
-        //        }
+            }
 
-        //        return account;
-        //    }
+            return account;
+        }
 
 
         public List<Account> GetByApartmentIdWithCloced(long apartmentId)
