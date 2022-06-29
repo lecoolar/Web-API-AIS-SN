@@ -331,6 +331,7 @@ namespace Web_API_AIS_SN.LibClass
             {
                 using (var sn = new SNContext(conString))
                 {
+                    var acc = sn.Accounts.First();
                     accounts = sn.Accounts.Where(q => q.Number == number).ToList();
                     if (accounts.Any())
                     {

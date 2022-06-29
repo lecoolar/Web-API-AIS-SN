@@ -62,14 +62,17 @@ namespace Web_API_AIS_SN.GKH
                     {
                         string query = @$"SELECT * FROM CRM.""AccountInfo""({Account})";
                         AccountInfoResult accountInfo = await sn.Set<AccountInfoResult>().FromSqlRaw(query).FirstOrDefaultAsync();
-                        PropertyInfo[] Props = accountInfo.GetType().GetProperties();
-                        var row = new Dictionary<string, object>();
-                        foreach (var prop in Props)
+                        if (accountInfo != null)
                         {
-                            row.Add(prop.Name, prop.GetValue(accountInfo, null));
-                            //inserting property values to datatable rows
+                            PropertyInfo[] Props = accountInfo.GetType().GetProperties();
+                            var row = new Dictionary<string, object>();
+                            foreach (var prop in Props)
+                            {
+                                row.Add(prop.Name, prop.GetValue(accountInfo, null));
+                                //inserting property values to datatable rows
+                            }
+                            rows.Add(row);
                         }
-                        rows.Add(row);
                     }
                 }
                 if (rows.Any())

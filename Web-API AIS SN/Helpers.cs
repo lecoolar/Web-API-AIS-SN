@@ -82,9 +82,7 @@ namespace Web_API_AIS_SN
             var ws = new WebService();
             using (var smsr = new SMSRContext())
             {
-                //List<WebService> webServices = smsr.WebServices.ToList();
                 ws = smsr.WebServices.FirstOrDefault(w => w.Id == baseId);
-                //ws = webServices.FirstOrDefault(w => w.Id == baseId);
             }
             var constring = ws != null ?  GetConnectionStringByWS(ws) : "";
             return constring;
@@ -610,7 +608,6 @@ namespace Web_API_AIS_SN
 
         public bool CheckUserPermisson(string constring, long accountId)
         {
-
             var login = constring.Split("ID=")[1].Split(';')[0];
             var userPermisson = false;
             using (var sn = new SNContext(constring))

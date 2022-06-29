@@ -95,6 +95,7 @@ namespace Web_API_AIS_SN.GKH
                 {
                     res.Result.Code = 2;
                     res.Result.Message = "По указанным данным информация не найдена";
+
                 }
 
                 return res;

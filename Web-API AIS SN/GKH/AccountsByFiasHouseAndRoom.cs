@@ -20,7 +20,6 @@ namespace Web_API_AIS_SN.GKH
 
     public class AccountsByFiasHouseAndRoom
     {
-        private string Phone { get; set; }
         public string FiasHouse { get; set; }
         public string Room { get; set; }
         public string Uid { get; set; }
@@ -72,7 +71,6 @@ namespace Web_API_AIS_SN.GKH
                             row.Add("numberBase", ws.BaseId);
                             row.Add("baseName", ws.BaseName);
                             row.Add("orgName", ws.Area);
-                            row.Add("baseId", ws.BaseId);
                             rows.Add(row);
                         }
                     }

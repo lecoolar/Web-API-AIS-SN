@@ -18,16 +18,18 @@ namespace Web_API_AIS_SN.Controllers
     [Route("api/[controller]")]
     public class SMSRServiceController : ControllerBase
     {
+        
         [HttpPost]
         [Route("ReturnResponseData")]
         public async Task<ActionResult<ResponseData>> ReturnResponseData(GKH.Request request)
         {
-            ResponseData result = new ResponseData();
+            List<Dictionary<string, object>> qwerty = new List<Dictionary<string, object>>();
+                ResponseData result = new ResponseData();
             switch (request.MetodRequest)
             {
                 case "AccountInfo":
                     GKH.AccountInfo accountInfo = new GKH.AccountInfo(request.@params);
-                    result = await accountInfo.GetAccountInfo();
+                    result = await accountInfo.GetAccountInfo();                   
                     break;
                 case "GetAccountsByFiasHouseAndRoom":
                     AccountsByFiasHouseAndRoom accountsByFiasHouseAndRoom = new AccountsByFiasHouseAndRoom(request.@params);
@@ -73,7 +75,6 @@ namespace Web_API_AIS_SN.Controllers
                     CountResidentVacation countResidentVacation = new CountResidentVacation(request.@params);
                     result = await countResidentVacation.GetCountResidentVacation();
                     break;
-#test
                 case "GetFasets":
                     Fasets fasets = new Fasets(request.@params);
                     result = await fasets.GetFasets();

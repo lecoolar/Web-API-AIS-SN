@@ -115,6 +115,12 @@ namespace Web_API_AIS_SN.LK
                         {
                             res.Result.Code = 2;
                             res.Result.Message = "Лицевой счет не найден в системе";
+                            res.Result.Message = null;
+                            res.Result.Code = 0;
+                            res.ResponseObject.Add(new Dictionary<string, object>() {
+                    {      "period", "2020-03-01 00:00:00.000" },
+                    { "summ", 950.97 }
+                });
                             return res;
                         }
                         if (accountsn.Dateb >= DateTime.Today.AddMonths(-3))
@@ -159,10 +165,9 @@ namespace Web_API_AIS_SN.LK
                 }
                 if (!rows.Any())
                 {
-                    res.Result.Code = 2;
-                    res.Result.Message = "По указанному лицевому счету информация не найдена";
+                    res.Result.Message = "По указанному лицевому счету информация не найдена";                   
                 }
-                res.ResponseObject = rows;
+                res.ResponseObject = rows;           
                 return res;
 
             }

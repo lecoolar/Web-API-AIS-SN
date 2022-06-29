@@ -16,27 +16,27 @@ namespace Web_API_AIS_SN.ResultModels
 
 		public string HouseHolderName { get; set; }
 
-		public System.Nullable<decimal> Total { get; set; }
+		public decimal? Total { get; set; }
 
-		public System.Nullable<decimal> Living { get; set; }
+		public decimal? Living { get; set; }
 
-		public System.Nullable<decimal> Heating { get; set; }
+		public decimal? Heating { get; set; }
 
-		public System.Nullable<int> ApartmentFloorHouse { get; set; }
+		public int? ApartmentFloorHouse { get; set; }
 
-		public System.Nullable<int> ApartmentRoomsCount { get; set; }
+		public int? ApartmentRoomsCount { get; set; }
 
-		public System.Nullable<long> ApartmentId { get; set; }
+		public long? ApartmentId { get; set; }
 
 		public string TerritorialSubDivisionName { get; set; }
 
-		public System.Nullable<long> TerritorialSubDivisionCode { get; set; }
+		public long? TerritorialSubDivisionCode { get; set; }
 
 		public string ApartmentType { get; set; }
 
-		public System.Nullable<int> ResidentsCount { get; set; }
+		public int? ResidentsCount { get; set; }
 
-		public System.Nullable<int> ResidentVacationsCount { get; set; }
+		public int? ResidentVacationsCount { get; set; }
 
 		//public AccountInfoResult(string accountNumber, SNContext snContext)
 		//{

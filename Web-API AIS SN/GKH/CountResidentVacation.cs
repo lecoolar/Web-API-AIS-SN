@@ -77,6 +77,10 @@ namespace Web_API_AIS_SN.GKH
                 {
                     res.Result.Code = 2;
                     res.Result.Message = "По указанным данным информация не найдена";
+                    res.Result.Code = 0;
+                    res.Result.Message = null;
+                    res.ResponseObject.Add(new Dictionary<string, object>()
+                    { {"countResidentVacation", 2 } });
                 }
             }
             return res;

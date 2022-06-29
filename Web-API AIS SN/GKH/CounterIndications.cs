@@ -71,7 +71,7 @@ namespace Web_API_AIS_SN.GKH
                 //constring = "Data Source=Dev1-Srv.aisgorod.ru,1434;Initial Catalog=sn_moskov_KR_test;User ID=lk;Password=lk2011";
                 using (var sn = new SNContext(constring))
                 {
-                    string query = @$"SELECT * FROM CRM.""CounterIndicationsByPeriod""({CounterId.ToString()},'{FromDate}','{ToDate}')";
+                    string query = @$"SELECT * FROM CRM.""CounterIndicationsByPeriod""({CounterId},'{FromDate}','{ToDate}')";
                     var resu = await sn.Set<CounterIndicationsByPeriodResult>().FromSqlRaw(query).ToListAsync();
                     //var resu = sn.CounterIndicationsByPeriod(CounterId.ToString(), FromDate, ToDate).ToList();
                     DataTable dt = new DataTable();
